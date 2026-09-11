@@ -34,7 +34,8 @@ export default function Background() {
     let running = false;
 
     const seed = () => {
-      stars = Array.from({ length: 80 }, () => ({
+      const count = w < 768 ? 40 : 80;
+      stars = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
         r: Math.random() * 1.3 + 0.4,
@@ -51,7 +52,8 @@ export default function Background() {
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      if (stars.length === 0) seed();
+      const count = w < 768 ? 40 : 80;
+      if (stars.length !== count) seed();
       if (reduced) draw(0);
     };
 

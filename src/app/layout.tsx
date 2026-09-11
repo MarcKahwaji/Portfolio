@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { site } from "@/data/site";
 import "./globals.css";
@@ -7,6 +7,7 @@ const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
   weight: ["500", "700"],
+  preload: true,
 });
 
 const plexSans = IBM_Plex_Sans({
@@ -20,6 +21,11 @@ const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400"],
 });
+
+export const viewport: Viewport = {
+  viewportFit: "cover",
+  themeColor: "#0B1220",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.siteUrl),

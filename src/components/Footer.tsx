@@ -22,7 +22,7 @@ export default function Footer() {
               {...(link.kind === "cv"
                 ? { download: "Marc-Kahwaji-CV.pdf" }
                 : {})}
-              className="text-sm text-muted transition-colors duration-150 hover:text-text"
+              className="inline-block py-3 text-sm text-muted transition-colors duration-150 hover:text-text md:py-0"
             >
               {link.label}
             </a>

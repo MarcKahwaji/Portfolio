@@ -262,12 +262,20 @@ export default function AgentGraph({ labels }: { labels: string[] }) {
       hoverIdx = -1;
       svg.style.cursor = "default";
     };
-    const onClick = (e: PointerEvent) => {
-      const idx = hit(toLocal(e));
+    const onDown = (e: PointerEvent) => {
+      const pt = toLocal(e);
+      cursor = pt;
+      const idx = hit(pt);
       if (idx < 0) return;
       const colour = ACCENT_HEX[ACCENT_CYCLE[seq % ACCENT_CYCLE.length]];
       spawnPulse(idx, 300);
       ripples.push({ node: idx, start: performance.now(), colour });
+    };
+    const onUp = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") {
+        cursor = null;
+        hoverIdx = -1;
+      }
     };
     const onWindowMove = (e: PointerEvent) => {
       parallax.tx = (e.clientX / window.innerWidth - 0.5) * 10;
@@ -290,7 +298,9 @@ export default function AgentGraph({ labels }: { labels: string[] }) {
 
     svg.addEventListener("pointermove", onMove);
     svg.addEventListener("pointerleave", onLeave);
-    svg.addEventListener("pointerdown", onClick);
+    svg.addEventListener("pointerdown", onDown);
+    svg.addEventListener("pointerup", onUp);
+    svg.addEventListener("pointercancel", onUp);
     window.addEventListener("pointermove", onWindowMove, { passive: true });
     document.addEventListener("visibilitychange", onVisibility);
     start();
@@ -300,7 +310,9 @@ export default function AgentGraph({ labels }: { labels: string[] }) {
       io.disconnect();
       svg.removeEventListener("pointermove", onMove);
       svg.removeEventListener("pointerleave", onLeave);
-      svg.removeEventListener("pointerdown", onClick);
+      svg.removeEventListener("pointerdown", onDown);
+      svg.removeEventListener("pointerup", onUp);
+      svg.removeEventListener("pointercancel", onUp);
       window.removeEventListener("pointermove", onWindowMove);
       document.removeEventListener("visibilitychange", onVisibility);
     };
@@ -312,7 +324,8 @@ export default function AgentGraph({ labels }: { labels: string[] }) {
       viewBox={`0 0 ${SIZE} ${SIZE}`}
       role="img"
       aria-label="Diagram of seven agent nodes connected to a central orchestrator"
-      className="h-auto w-full touch-none select-none"
+      className="h-auto w-full select-none"
+      style={{ touchAction: "pan-y" }}
     >
       <g ref={worldRef}>
         {NODE_POLAR.map((_, i) => {

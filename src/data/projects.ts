@@ -5,6 +5,7 @@ export type Project = {
   stack: string[];
   featured: boolean;
   pipeline?: string[];
+  image?: string;
   repo?: string;
   live?: string;
 };
@@ -35,6 +36,7 @@ export const projects: Project[] = [
       "SSE",
       "Prometheus",
     ],
+    image: "/projects/research-orchestrator.png",
     repo: "https://github.com/markcoffee121-HSCL/multi-agent-research-orchestrator",
   },
   {
@@ -55,6 +57,7 @@ export const projects: Project[] = [
       "CoinGecko API",
       "NewsAPI",
     ],
+    image: "/projects/crypto-trading.png",
     repo: "https://github.com/markcoffee121-HSCL/Crypto-Trading-Multi-Agent",
   },
   {

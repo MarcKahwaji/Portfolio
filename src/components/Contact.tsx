@@ -24,7 +24,7 @@ export default function Contact() {
               <li>
                 <a
                   href={`mailto:${site.email}`}
-                  className="inline-flex items-center gap-2.5 text-base text-text transition-colors duration-150 hover:text-mint"
+                  className="inline-flex items-center gap-2.5 py-2.5 text-base text-text md:py-0 transition-colors duration-150 hover:text-mint"
                 >
                   <Mail size={16} className="text-mint" aria-hidden />
                   {site.email}
@@ -35,7 +35,7 @@ export default function Contact() {
                   href={site.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 text-base text-text transition-colors duration-150 hover:text-mint"
+                  className="inline-flex items-center gap-2.5 py-2.5 text-base text-text md:py-0 transition-colors duration-150 hover:text-mint"
                 >
                   <GithubIcon size={16} className="text-mint" aria-hidden />
                   {githubLabel}
@@ -47,7 +47,7 @@ export default function Contact() {
                     href={site.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 text-base text-text transition-colors duration-150 hover:text-mint"
+                    className="inline-flex items-center gap-2.5 py-2.5 text-base text-text md:py-0 transition-colors duration-150 hover:text-mint"
                   >
                     <LinkedinIcon size={16} className="text-mint" aria-hidden />
                     LinkedIn

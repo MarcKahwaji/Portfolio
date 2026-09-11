@@ -178,6 +178,82 @@ section[id] {
   }
 }
 
+/* Skill chips */
+.chip {
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    filter 0.2s ease;
+}
+@media (hover: hover) {
+  .chip:hover {
+    background-color: var(--chip) !important;
+    color: var(--color-ink) !important;
+    border-color: var(--chip) !important;
+    transform: scale(1.05);
+  }
+}
+.chip:focus-visible {
+  outline: 2px solid var(--chip);
+  outline-offset: 2px;
+}
+
+/* Timeline marker halo */
+.marker-halo {
+  animation: halo 2.2s ease-in-out infinite;
+}
+@keyframes halo {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(2);
+    opacity: 0.08;
+  }
+}
+
+/* One-time ripple on a passed timeline dot */
+.dot-ripple {
+  animation: dot-ripple 0.7s ease-out forwards;
+}
+@keyframes dot-ripple {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(4.5);
+    opacity: 0;
+  }
+}
+
+/* Shimmer sweep on the timeline fill */
+.rail-shimmer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  animation: rail-shimmer 3.2s linear infinite;
+}
+@keyframes rail-shimmer {
+  from {
+    top: -140px;
+  }
+  to {
+    top: 100%;
+  }
+}
+
 /* Card accent border on hover */
 .card-accent-border {
   transition:
@@ -213,7 +289,10 @@ section[id] {
   .blob-b,
   .blob-c,
   .pulse-dot,
-  .pipe-dot {
+  .pipe-dot,
+  .marker-halo,
+  .dot-ripple,
+  .rail-shimmer {
     animation: none !important;
   }
   .shine::after {

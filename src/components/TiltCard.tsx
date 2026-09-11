@@ -18,6 +18,7 @@ export default function TiltCard({
   const rootRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(true);
+  const [spotOn, setSpotOn] = useState(false);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -39,6 +40,7 @@ export default function TiltCard({
     const py = (e.clientY - rect.top) / rect.height;
     root.style.setProperty("--spot-x", `${px * 100}%`);
     root.style.setProperty("--spot-y", `${py * 100}%`);
+    setSpotOn(true);
     if (reduced || e.pointerType !== "mouse") return;
     const rx = Math.max(-6, Math.min(6, (0.5 - py) * 12));
     const ry = Math.max(-6, Math.min(6, (px - 0.5) * 12));
@@ -46,6 +48,7 @@ export default function TiltCard({
   };
 
   const onLeave = () => {
+    setSpotOn(false);
     const inner = innerRef.current;
     if (inner) inner.style.transform = "";
   };
@@ -58,11 +61,13 @@ export default function TiltCard({
           ? "rounded-[12px] border border-line/60 bg-panel p-6 md:p-8"
           : "rounded-[8px] border border-line bg-ink/40 p-6"
       }`}
+      style={spotOn ? { borderColor: hexA(accent, 0.6) } : undefined}
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300"
         style={{
+          opacity: spotOn ? 1 : 0,
           background: `radial-gradient(240px circle at var(--spot-x, 50%) var(--spot-y, 50%), ${hexA(
             accent,
             0.14,

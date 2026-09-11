@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { Mail } from "lucide-react";
+import { useRef, useState } from "react";
+import { Check, Mail } from "lucide-react";
 import { motion, useReducedMotion, useSpring } from "motion/react";
 import AgentGraph from "@/components/AgentGraph";
 import { site } from "@/data/site";
@@ -64,6 +64,7 @@ function MagneticCta() {
 
 export default function Hero() {
   const reduced = useReducedMotion();
+  const [copied, setCopied] = useState(false);
   const words = headlineWords();
   const agentLabels = projects[0].pipeline ?? [];
 
@@ -141,10 +142,22 @@ export default function Hero() {
             </a>
             <a
               href={`mailto:${site.email}`}
-              className="inline-flex items-center gap-2 text-base text-mint transition-colors duration-150 hover:text-mint-deep md:text-[18px]"
+              aria-live="polite"
+              onClick={(e) => {
+                if (e.detail === 0) return;
+                e.preventDefault();
+                navigator.clipboard?.writeText(site.email).catch(() => {});
+                setCopied(true);
+                window.setTimeout(() => setCopied(false), 1500);
+              }}
+              className="inline-flex items-center gap-2 py-2.5 text-base text-mint transition-colors duration-150 hover:text-mint-deep md:py-0 md:text-[18px]"
             >
-              <Mail size={17} aria-hidden />
-              {site.email}
+              {copied ? (
+                <Check size={17} aria-hidden />
+              ) : (
+                <Mail size={17} aria-hidden />
+              )}
+              {copied ? site.hero.copied : site.email}
             </a>
           </motion.div>
 

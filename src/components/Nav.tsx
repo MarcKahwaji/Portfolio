@@ -49,11 +49,12 @@ export default function Nav() {
           ? "border-b border-line bg-ink/90 backdrop-blur"
           : "border-b border-transparent bg-transparent"
       }`}
+      style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-5 md:px-8">
         <a
           href="#"
-          className="group inline-flex items-center gap-2.5 font-display text-2xl font-bold tracking-[-0.02em] text-text"
+          className="group inline-flex items-center gap-2.5 py-1.5 font-display text-2xl font-bold tracking-[-0.02em] text-text"
         >
           <span className="relative">
             <span className="transition-opacity duration-[250ms] group-hover:opacity-0">
@@ -109,7 +110,7 @@ export default function Nav() {
 
         <button
           type="button"
-          className="text-text md:hidden"
+          className="-m-[11px] p-[11px] text-text md:hidden"
           aria-expanded={open}
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
@@ -121,14 +122,18 @@ export default function Nav() {
       {open && (
         <nav
           aria-label="Mobile"
-          className="fixed inset-x-0 top-16 bottom-0 flex flex-col items-center justify-center gap-8 bg-ink md:hidden"
+          className="fixed inset-x-0 bottom-0 flex flex-col items-center justify-center gap-6 bg-ink md:hidden"
+          style={{
+            top: "calc(4rem + env(safe-area-inset-top))",
+            paddingBottom: "env(safe-area-inset-bottom)",
+          }}
         >
           {site.nav.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="font-display text-2xl font-medium text-text transition-colors duration-150 hover:text-mint"
+              className="py-1.5 font-display text-2xl font-medium text-text transition-colors duration-150 hover:text-mint"
             >
               {link.label}
             </a>

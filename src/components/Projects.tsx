@@ -1,6 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import { GithubIcon } from "@/components/BrandIcons";
 import PipelineDiagram from "@/components/PipelineDiagram";
+import ProjectImage from "@/components/ProjectImage";
 import Reveal from "@/components/Reveal";
 import TiltCard from "@/components/TiltCard";
 import { site } from "@/data/site";
@@ -22,7 +23,7 @@ function CardLinks({ project }: { project: Project }) {
           href={project.repo}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-sm text-mint transition-colors duration-150 hover:text-mint-deep"
+          className="inline-flex items-center gap-1.5 py-3 text-sm text-mint transition-colors duration-150 hover:text-mint-deep md:py-0"
         >
           <GithubIcon size={14} aria-hidden />
           Code
@@ -33,7 +34,7 @@ function CardLinks({ project }: { project: Project }) {
           href={project.live}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-sm text-mint transition-colors duration-150 hover:text-mint-deep"
+          className="inline-flex items-center gap-1.5 py-3 text-sm text-mint transition-colors duration-150 hover:text-mint-deep md:py-0"
         >
           <ExternalLink size={14} aria-hidden />
           Live
@@ -56,6 +57,9 @@ function CardBody({ project, accent }: { project: Project; accent: string }) {
         <div className="mt-5">
           <PipelineDiagram pipeline={project.pipeline} accent={accent} />
         </div>
+      )}
+      {project.image && (
+        <ProjectImage src={project.image} alt={project.title} />
       )}
       <p className="mt-4 text-base leading-[1.6] text-text md:text-[18px]">
         {project.description}
@@ -107,6 +111,18 @@ export default function Projects() {
             );
           })}
         </div>
+
+        <Reveal>
+          <p className="mt-10 text-base text-muted md:text-[18px]">
+            {site.projects.ctaText}{" "}
+            <a
+              href="#contact"
+              className="inline-block py-2.5 text-mint transition-colors duration-150 hover:text-mint-deep md:py-0"
+            >
+              {site.projects.ctaLink}
+            </a>
+          </p>
+        </Reveal>
       </div>
     </section>
   );

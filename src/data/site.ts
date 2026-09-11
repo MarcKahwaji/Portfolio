@@ -26,6 +26,7 @@ export const site = {
     secondaryCta: "Download CV",
     status: "Open to full-time, contract, and freelance work. Based in Lebanon.",
     graphCaption: "Agent layout from the research orchestrator project.",
+    copied: "Copied",
   },
   about: {
     title: "About",
@@ -44,6 +45,8 @@ export const site = {
     title: "Projects",
     intro:
       "Work from HyperCycle, freelance clients, and research. Client work is described without internal detail.",
+    ctaText: "Want something like this built?",
+    ctaLink: "Send a message.",
   },
   experienceTitle: "Experience",
   skillsTitle: "Skills",

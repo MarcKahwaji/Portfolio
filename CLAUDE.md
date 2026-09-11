@@ -31,7 +31,7 @@ This folder already contains CLAUDE.md, BRIEF.md, and public/cv/. `create-next-a
 - All site content lives in `src/data/*.ts` (site, projects, experience, skills). Components render data, they do not contain copy.
 - No traces of Lovable: grep the repo for `lovable` and `r2.dev` before finishing, both must return nothing.
 - Anything you do not know (a URL, a number, a name) goes in as the literal string `TODO` in the data file, never invented.
-- Commit after each completed section with a plain message, for example `feat: hero section`.
+- Never run git commit or git push. Leave changes in the working tree; the owner reviews and commits.
 - Do not add analytics, cookie banners, chat widgets, or third-party scripts unless asked.
 - Semantic HTML (header, nav, main, section, footer), visible focus states, `prefers-reduced-motion` respected, WCAG AA contrast.
 - Mobile first. Verify at 360, 768, and 1280 px wide.
