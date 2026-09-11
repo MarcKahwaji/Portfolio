@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ink: #0b1220;
+  --color-panel: #111b2e;
+  --color-line: #22304a;
+  --color-text: #e6eaf2;
+  --color-muted: #8b97ad;
+  --color-mint: #3ddc97;
+  --color-mint-deep: #24b67a;
+  --color-cyan: #22d3ee;
+  --color-violet: #a78bfa;
+  --color-amber: #fbbf24;
+  --color-rose: #fb7185;
+
+  --font-display: var(--font-bricolage), sans-serif;
+  --font-sans: var(--font-plex-sans), sans-serif;
+  --font-mono: var(--font-plex-mono), monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+section[id] {
+  scroll-margin-top: 88px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-mint);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-mint);
+  color: var(--color-ink);
+}
+
+/* Gradient text */
+.text-gradient-mint-cyan {
+  background: linear-gradient(90deg, var(--color-mint), var(--color-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Background blobs */
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  will-change: transform;
+}
+.blob-a {
+  animation: blob-a 75s ease-in-out infinite;
+}
+.blob-b {
+  animation: blob-b 90s ease-in-out infinite;
+}
+.blob-c {
+  animation: blob-c 62s ease-in-out infinite;
+}
+@keyframes blob-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(9vw, 6vh) scale(1.08);
+  }
+  66% {
+    transform: translate(-6vw, 12vh) scale(0.94);
+  }
+}
+@keyframes blob-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(-8vw, -7vh) scale(1.06);
+  }
+  70% {
+    transform: translate(6vw, -3vh) scale(0.92);
+  }
+}
+@keyframes blob-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(8vw, -9vh) scale(1.1);
+  }
+}
+
+/* Pulsing dot */
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.5);
+  }
+}
+
+/* Shine sweep on buttons */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 55%;
+  transform: translateX(-140%) skewX(-20deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .shine:hover::after {
+    animation: shine 0.7s ease forwards;
+  }
+}
+@keyframes shine {
+  to {
+    transform: translateX(300%) skewX(-20deg);
+  }
+}
+
+/* Pipeline diagram pulse */
+.pipe-dot {
+  animation: pipe 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--pipe-i) * 0.4s);
+}
+[data-inview="false"] .pipe-dot {
+  animation-play-state: paused;
+}
+@keyframes pipe {
+  0%,
+  16%,
+  100% {
+    opacity: 0.65;
+    transform: scale(1);
+    box-shadow: none;
+  }
+  8% {
+    opacity: 1;
+    transform: scale(1.55);
+    box-shadow: 0 0 10px currentColor;
+  }
+}
+
+/* Card accent border on hover */
+.card-accent-border {
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease-out;
+}
+@media (hover: hover) {
+  .group:hover > .card-accent-border,
+  .group:hover .card-accent-border {
+    border-color: color-mix(in srgb, var(--card-accent) 60%, transparent);
+  }
+}
+
+/* Animated check mark */
+.check-circle {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  animation: draw 0.6s ease forwards;
+}
+.check-path {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: draw 0.45s ease forwards 0.35s;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob-a,
+  .blob-b,
+  .blob-c,
+  .pulse-dot,
+  .pipe-dot {
+    animation: none !important;
+  }
+  .shine::after {
+    display: none;
+  }
+  .check-circle,
+  .check-path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

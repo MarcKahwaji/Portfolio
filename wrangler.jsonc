@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio",
+  "main": ".open-next/worker.js",
+  "workers_dev": false,
+  "preview_urls": false,
+  "compatibility_date": "2026-09-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "keep_vars": true,
+  "vars": {
+    "CONTACT_TO_EMAIL": "kahwajiimark@gmail.com"
+  },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  }
+}

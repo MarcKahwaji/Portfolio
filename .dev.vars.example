@@ -1,0 +1,5 @@
+# Local values for `npm run preview` (wrangler). Copy to .dev.vars and fill in.
+# In production, set these with `npx wrangler secret put RESEND_API_KEY` and
+# a plain var for CONTACT_TO_EMAIL in wrangler.jsonc or the dashboard.
+RESEND_API_KEY=
+CONTACT_TO_EMAIL=kahwajiimark@gmail.com
