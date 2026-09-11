@@ -43,7 +43,6 @@ export default function SkillRow({
         {tools.map((tool, i) => (
           <span
             key={tool}
-            tabIndex={0}
             onPointerEnter={(e) => {
               if (e.pointerType === "mouse") setHoverChip(i);
             }}

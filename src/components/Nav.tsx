@@ -37,12 +37,34 @@ export default function Nav() {
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
+    document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onChange = () => {
+      if (mq.matches) setOpen(false);
+    };
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-150 ${
         scrolled || open
@@ -119,21 +141,39 @@ export default function Nav() {
         </button>
       </div>
 
-      {open && (
+    </header>
+
+    {open && (
+      <div
+        className="fixed inset-0 z-[90] flex flex-col bg-ink md:hidden"
+        style={{
+          paddingTop: "env(safe-area-inset-top)",
+          paddingBottom: "env(safe-area-inset-bottom)",
+        }}
+      >
+        <div className="flex h-16 shrink-0 items-center justify-between border-b border-line px-5">
+          <span className="font-display text-2xl font-bold tracking-[-0.02em] text-text">
+            {site.name}
+          </span>
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+            className="-m-[11px] p-[11px] text-text"
+          >
+            <X size={22} aria-hidden />
+          </button>
+        </div>
         <nav
           aria-label="Mobile"
-          className="fixed inset-x-0 bottom-0 flex flex-col items-center justify-center gap-6 bg-ink md:hidden"
-          style={{
-            top: "calc(4rem + env(safe-area-inset-top))",
-            paddingBottom: "env(safe-area-inset-bottom)",
-          }}
+          className="flex min-h-0 flex-1 flex-col items-center justify-center gap-1 overflow-y-auto px-5"
         >
           {site.nav.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="py-1.5 font-display text-2xl font-medium text-text transition-colors duration-150 hover:text-mint"
+              className="flex min-h-[48px] items-center font-display text-[26px] font-medium text-text transition-colors duration-150 hover:text-mint"
             >
               {link.label}
             </a>
@@ -142,12 +182,13 @@ export default function Nav() {
             href={site.cvPath}
             download="Marc-Kahwaji-CV.pdf"
             onClick={() => setOpen(false)}
-            className="rounded-[6px] border border-line px-5 py-2.5 text-lg text-text transition-colors duration-150 hover:border-mint"
+            className="mt-4 flex min-h-[48px] items-center rounded-[6px] border border-line px-6 text-lg text-text transition-colors duration-150 hover:border-mint"
           >
             {site.hero.secondaryCta}
           </a>
         </nav>
-      )}
-    </header>
+      </div>
+    )}
+    </>
   );
 }

@@ -195,11 +195,6 @@ section[id] {
     transform: scale(1.05);
   }
 }
-.chip:focus-visible {
-  outline: 2px solid var(--chip);
-  outline-offset: 2px;
-}
-
 /* Timeline marker halo */
 .marker-halo {
   animation: halo 2.2s ease-in-out infinite;
